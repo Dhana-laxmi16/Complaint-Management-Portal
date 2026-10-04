@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Admin Dashboard</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="complaint.html">Complaint</a>
+
+        <a href="track.html">Track</a>
+
+        <a href="admin.html">Admin</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h2>Complaint Overview</h2>
+
+    <div class="dashboard">
+
+        <div class="stat">
+            <h3>Total</h3>
+            <p id="total">0</p>
+        </div>
+
+        <div class="stat">
+            <h3>Pending</h3>
+            <p id="pending">0</p>
+        </div>
+
+        <div class="stat">
+            <h3>In Progress</h3>
+            <p id="progress">0</p>
+        </div>
+
+        <div class="stat">
+            <h3>Resolved</h3>
+            <p id="resolved">0</p>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Complaint Records</h2>
+
+        <div id="complaintList"></div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

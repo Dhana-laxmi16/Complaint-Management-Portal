@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Track Complaint</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Complaint Management Portal</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="complaint.html">Complaint</a>
+
+        <a href="track.html">Track</a>
+
+        <a href="admin.html">Admin</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Track Your Complaint</h2>
+
+        <p>
+            Enter your Complaint ID to check the current status.
+        </p>
+
+        <input
+            type="text"
+            id="complaintId"
+            placeholder="Example: CMP123456">
+
+        <button onclick="trackComplaint()">
+            Track Complaint
+        </button>
+
+        <div id="trackingResult"></div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

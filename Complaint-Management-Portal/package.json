@@ -1,0 +1,35 @@
+{
+  "name": "complaint-management-portal",
+  "version": "1.0.0",
+  "description": "A full-stack Complaint Management Portal built with Node.js, Express, MongoDB, and Bootstrap. Supports user registration/login, complaint submission with auto-generated Complaint IDs, complaint tracking, a user dashboard, and a full admin dashboard for managing complaints.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "complaint-management",
+    "express",
+    "mongodb",
+    "nodejs",
+    "college-project"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

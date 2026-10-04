@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Complaint Management Portal</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<div class="container">
+  <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+      <h2><i class="bi bi-shield-lock-fill me-2 text-primary"></i>Admin Dashboard</h2>
+      <p class="mb-0">Manage, review and resolve all submitted complaints.</p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="stat-card stat-total"><i class="bi bi-clipboard-data stat-icon"></i><h2 id="statTotal">0</h2><p>Total Complaints</p></div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card stat-pending"><i class="bi bi-hourglass-split stat-icon"></i><h2 id="statPending">0</h2><p>Submitted / Review</p></div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card stat-progress"><i class="bi bi-gear-fill stat-icon"></i><h2 id="statInProgress">0</h2><p>In Progress</p></div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card stat-resolved"><i class="bi bi-check-circle-fill stat-icon"></i><h2 id="statResolved">0</h2><p>Resolved</p></div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="card-cmp p-3 mb-4">
+    <div class="row g-2 align-items-end">
+      <div class="col-md-3">
+        <label class="form-label small fw-semibold mb-1">Search</label>
+        <input type="text" class="form-control" id="fSearch" placeholder="ID, name, email, title...">
+      </div>
+      <div class="col-md-2">
+        <label class="form-label small fw-semibold mb-1">Complaint ID</label>
+        <input type="text" class="form-control" id="fComplaintId" placeholder="CMP2026...">
+      </div>
+      <div class="col-md-2">
+        <label class="form-label small fw-semibold mb-1">Category</label>
+        <select class="form-select" id="fCategory"><option value="All">All Categories</option></select>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label small fw-semibold mb-1">Status</label>
+        <select class="form-select" id="fStatus">
+          <option value="All">All Statuses</option>
+          <option>Submitted</option>
+          <option>Under Review</option>
+          <option>In Progress</option>
+          <option>Resolved</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label small fw-semibold mb-1">Priority</label>
+        <select class="form-select" id="fPriority"><option value="All">All Priorities</option></select>
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-primary-cmp w-100" id="applyFiltersBtn"><i class="bi bi-funnel"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Complaints table -->
+  <div class="card-cmp p-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+      <h5 class="fw-bold mb-0"><i class="bi bi-table me-2 text-primary"></i>All Complaints</h5>
+      <span class="text-muted small" id="resultCount">0 results</span>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-cmp align-middle">
+        <thead>
+          <tr>
+            <th>Complaint ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Submitted On</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="complaintsTableBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state d-none" id="emptyState">
+      <i class="bi bi-inbox"></i>
+      <p class="mb-0">No complaints match your filters.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Detail / Update Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content" style="border-radius:16px;border:none;">
+      <div class="modal-header" style="background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-radius:16px 16px 0 0;">
+        <h5 class="modal-title fw-bold"><i class="bi bi-file-earmark-text me-2"></i>Complaint Details</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div id="modalAlertBox"></div>
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+          <h4 class="fw-bold text-primary mb-0" id="mComplaintId">-</h4>
+          <span class="badge-status" id="mStatusBadge">-</span>
+        </div>
+
+        <ul class="status-timeline" id="modalTimelineBar">
+          <li data-stage="Submitted"><div class="tl-circle"><i class="bi bi-inbox-fill"></i></div>Submitted</li>
+          <li data-stage="Under Review"><div class="tl-circle"><i class="bi bi-eye-fill"></i></div>Under Review</li>
+          <li data-stage="In Progress"><div class="tl-circle"><i class="bi bi-gear-fill"></i></div>In Progress</li>
+          <li data-stage="Resolved"><div class="tl-circle"><i class="bi bi-check-circle-fill"></i></div>Resolved</li>
+        </ul>
+        <hr class="my-4">
+
+        <div class="row g-3">
+          <div class="col-md-6"><div class="detail-label">Title</div><div class="detail-value" id="mTitle">-</div></div>
+          <div class="col-md-6"><div class="detail-label">Category</div><div class="detail-value" id="mCategory">-</div></div>
+          <div class="col-md-6"><div class="detail-label">Priority</div><div class="detail-value" id="mPriority">-</div></div>
+          <div class="col-md-6"><div class="detail-label">Location</div><div class="detail-value" id="mLocation">-</div></div>
+          <div class="col-md-6"><div class="detail-label">Complainant</div><div class="detail-value" id="mName">-</div></div>
+          <div class="col-md-6"><div class="detail-label">Contact</div><div class="detail-value" id="mContact">-</div></div>
+          <div class="col-md-6"><div class="detail-label">Submitted On</div><div class="detail-value" id="mDate">-</div></div>
+          <div class="col-md-6" id="mAttachmentWrap" style="display:none;">
+            <div class="detail-label">Attachment</div>
+            <a id="mAttachmentLink" href="#" target="_blank" class="fw-semibold detail-value"><i class="bi bi-paperclip me-1"></i><span id="mAttachmentName">-</span></a>
+          </div>
+          <div class="col-12"><div class="detail-label">Description</div><div class="detail-value fw-normal" id="mDescription">-</div></div>
+        </div>
+
+        <hr class="my-4">
+        <h6 class="section-title">Update Complaint</h6>
+        <form id="updateForm">
+          <input type="hidden" id="mMongoId">
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Update Status</label>
+              <select class="form-select" id="updateStatus">
+                <option>Submitted</option>
+                <option>Under Review</option>
+                <option>In Progress</option>
+                <option>Resolved</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Admin Remarks</label>
+            <textarea class="form-control" id="updateRemarks" rows="3" placeholder="Add a note for the complainant..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary-cmp" id="updateBtn">
+            <span id="updateBtnText"><i class="bi bi-check2-circle me-1"></i>Save Update</span>
+          </button>
+        </form>
+
+        <h6 class="section-title mt-4">History</h6>
+        <ul class="list-group" id="mHistoryList"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer-cmp">
+  <div class="container text-center"><small>&copy; 2026 Complaint Management Portal — Admin Panel</small></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/admin-dashboard.js"></script>
+</body>
+</html>

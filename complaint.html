@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Complaint Management Portal</h1>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="complaint.html">Complaint</a>
+        <a href="track.html">Track</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Complaint Registration</h2>
+
+        <form id="complaintForm">
+
+            <label>Name</label>
+            <input type="text"
+                   id="name"
+                   placeholder="Enter your name"
+                   required>
+
+            <label>Email</label>
+            <input type="email"
+                   id="email"
+                   placeholder="Enter your email"
+                   required>
+
+            <label>Category</label>
+
+            <select id="category" required>
+
+                <option value="">Select Category</option>
+                <option>Infrastructure</option>
+                <option>Academic</option>
+                <option>Technical</option>
+                <option>Hostel</option>
+                <option>Transport</option>
+                <option>Other</option>
+
+            </select>
+
+            <label>Complaint Title</label>
+
+            <input type="text"
+                   id="title"
+                   placeholder="Enter complaint title"
+                   required>
+
+            <label>Description</label>
+
+            <textarea id="description"
+                      rows="5"
+                      placeholder="Describe your complaint"
+                      required></textarea>
+
+            <button type="submit">
+                Submit Complaint
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
